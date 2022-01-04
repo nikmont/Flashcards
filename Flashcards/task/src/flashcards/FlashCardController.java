@@ -36,36 +36,34 @@ public class FlashCardController {
             String input = getUserInput();
 
             switch (input) {
-                case "add":
-                    add();
-                    break;
-                case "remove":
+                case "add" -> add();
+                case "remove" -> {
                     outputMsg("Which card?");
                     String cardToRemove = getUserInput();
 
                     if (remove(cardToRemove)) {
                         outputMsg("The card has been removed.");
                     } else {
-                        outputMsg("Can't remove \""+ cardToRemove + "\": there is no such card.");
+                        outputMsg("Can't remove \"" + cardToRemove + "\": there is no such card.");
                     }
-                    break;
-                case "import":
-                    outputMsg("File name:");
-                    importCards(getUserInput());
-                    break;
-                case "export":
+                }
+                case "import" -> {
+                outputMsg("File name:");
+                importCards(getUserInput());
+                }
+                case "export" -> {
                     outputMsg("File name:");
                     exportCards(getUserInput());
-                    break;
-                case "ask":
+                }
+                case "ask" -> {
                     outputMsg("How many times to ask?");
                     ask(Integer.parseInt(getUserInput()));
-                    break;
-                case "log" :
+                }
+                case "log" -> {
                     outputMsg("File name:");
                     logStats(getUserInput());
-                    break;
-                case "hardest card" :
+                }
+                case "hardest card" -> {
                     List<Card> hardest = getHardestCards();
 
                     if (hardest.isEmpty() || hardest.get(0).getMistakesCount() == 0) {
@@ -79,20 +77,17 @@ public class FlashCardController {
                     } else {
                         outputMsg("The hardest card is \"" + hardest.get(0).getTerm() + "\". You have " + hardest.get(0).getMistakesCount() + " errors answering it.");
                     }
-                    break;
-                case "reset stats" :
-                    resetStats();
-                    break;
-                case "exit":
+                }
+                case "reset stats" -> resetStats();
+                case "exit" -> {
                     outputMsg("Bye bye!");
 
                     if (args.containsKey("-export")) {
                         exportCards(args.get("-export"));
                     }
                     isExit = true;
-                    break;
-                default:
-                    outputMsg("Invalid action");
+                }
+                default -> outputMsg("Invalid action");
             }
         }
     }
